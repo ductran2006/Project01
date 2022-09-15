@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Cache Creek Post Office</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light gb-light sticky-top">
+		<div class="container">
+			<a class="navbar-branch" href="#">
+				<img th:src="@{/img/logo.png}" alt="Post office logo" height="120">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarReponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="#navbarReponsive">
+				<ul class="navbar-nav ml-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/listUsers}">List users</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/userScreen}">User</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/createUser}">New user</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!--Carousel: slide pictures-->
+	<div id="slides" class="carousel slide" data-ride="carousel">
+		<ul class="carousel-indicators">
+			<li data-target="#slides" data-slide-to="0" class="active"></li>
+			<li data-target="#slides" data-slide-to="1"></li>
+			<li data-target="#slides" data-slide-to="2"></li>
+			<li data-target="#slides" data-slide-to="3"></li>
+			<li data-target="#slides" data-slide-to="4"></li>
+			<li data-target="#slides" data-slide-to="5"></li>
+		</ul>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img th:src="@{/img/CacheCreek05.jpg}" class="img-fluid">
+				<div class="carousel-caption">
+					<h1 class="display-2">Welcome to Post Office</h1>
+					<h1 class="display-5">Cache Creek</h1>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/img/CacheCreek00.jpg}">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/img/CacheCreek01.jpg}">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/img/CacheCreek02.jpg}">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/img/CacheCreek03.jpg}">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/img/CacheCreek04.jpg}">
+			</div>
+		</div>
+	</div>
+	<div>
+
+	</div>
+
+	<footer>
+		<div class="container-fluid">
+			<div class="row text-center">
+				<div class="col-md-6 pt-3">
+					<img th:src="@{/img/comit.png}" height="100">
+					<hr class="light">
+					<p>250 457 1234</p>
+					<P>cachecreekpo@gmail.com</P>
+				</div>
+				<div class="col-md-4">
+					<hr class="light">
+					<h3>Open hours</h3>
+					<hr class="light">
+					<p>Monday-Friday: 8am-5pm</p>
+					<P>Weekend: 8am-12am</P>
+				</div>
+
+				<div class="col-12">
+					<hr class="light-100">
+					<h5>&copy; ComIT</h5>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="js/index.css">
+
+</body>
+
+</html>

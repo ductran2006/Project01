@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>User List</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css">
+
+	<link rel="stylesheet" href="js/index.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand sm navbar-light gb-light sticky-top">
+		<div class="container">
+			<a class="navbar-branch" href="#">
+				<img th:src="@{/img/logo.png}" height="120">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarReponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="#navbarReponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<br>
+
+	<div class="container">
+		<form>
+			<div class="form-row">
+				<div class="form-group col-md-5">
+					<form th:action="@{/}">
+						Filter: <input type="text" name="keyword" require />
+						&nbsp;
+						<input type="submit" value="Search" />
+						&nbsp;
+						<input type="button" value="Clear" onclick="clearFilter()" />
+					</form>
+				</div>
+
+				<div class="form-group col-md-7" text-align="center">
+					<form th:action="@{/}" content-position-center>
+						<nav aria-label="Page navigation example">
+							<div th:if="${bookPage.totalPages > 0}" class="pagination"
+								th:each="pageNumber : ${pageNumbers}">
+								<a th:href="@{/listBooks(size=${bookPage.size}, page=${pageNumber})}"
+									th:text=${pageNumber} th:class="${pageNumber==bookPage.number + 1} ? active"></a>
+							</div>
+
+							<ul class="pagination justify-content-end">
+
+								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</nav>
+				</div>
+			</div>
+		</form>
+
+
+		<br>
+		<table class="table table-striped">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">ID User</th>
+					<th scope="col">FirstName</th>
+					<th scope="col">LastName</th>
+					<th scope="col">UserName</th>
+					<th scope="col">BoxName</th>
+					<th scope="col">Parcel</th>
+					<th scope="col">Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user:${users}">
+					<td th:text="${user.idUser}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td th:text="${user.userName}"></td>
+					<td th:text="${user.boxName}"></td>
+					<td>
+						<a th:href="@{/clear/} +${user.idUser}">Clear</a>
+						<span name="parcel" th:text="${user.parcel}"></span>
+						<a th:href="@{/add/} + ${user.idUser}">Add</a>
+					</td>
+
+					<td>
+						<a th:href="@{/updateUser/} + ${user.idUser}">Update</a>
+						&nbsp;
+						<a th:href="@{/deleteUser/} + ${user.idUser}">Delete</a>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row text-center">
+				<div class="col-md-6 pt-3">
+					<img th:src="@{/img/comit.png}" height="100">
+					<hr class="light">
+					<p>250 457 xxxx</p>
+					<P>cachecreekpo@gmail.com</P>
+				</div>
+				<div class="col-md-4">
+					<hr class="light">
+					<h3>Open hours</h3>
+					<hr class="light">
+					<p>Monday-Friday: 8am-5pm</p>
+					<P>Weekend: 8am-12am</P>
+				</div>
+
+				<div class="col-12">
+					<hr class="light-100">
+					<h5>&copy; Post Office Cache Creek</h5>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script>
+		$(document).ready(function () {
+			$("#myInput").on("keyup", function () {
+				var value = $(this).val().toLowerCase();
+				$("#myTable tr").filter(function () {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

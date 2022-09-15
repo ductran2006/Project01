@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Update user</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css">
+
+	<link rel="stylesheet" href="js/index.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand sm navbar-light gb-light sticky-top">
+		<div class="container">
+			<a class="navbar-branch" href="#">
+				<img th:src="@{/img/logo.png}" alt="Post office logo" height="120">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarReponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="#navbarReponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/index}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<h1 class="display-5 mb-3">Update user</h1>
+		<form th:action="@{/updateUser}" method="post">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>First name</label>
+					<input type="text" class="form-control" name="firstName" th:value="${user?.firstName}" placeholder="Type in first name" required>
+				</div>
+				<div class="form-group col-md-6">
+					<label>Last name</label>
+					<input type="text" class="form-control" name="lastName" th:value="${user?.lastName}" placeholder="Type in last name" required>
+				</div>
+				<div class="form-group col-md-6">
+					<label>User name</label>
+					<input type="text" class="form-control" name="userName" th:value="${user?.userName}" placeholder="Type in user name" required>
+				</div>
+				<div class="form-group col-md-6">
+					<label>Email</label>
+					<input type="email" class="form-control" name="email" th:value="${user?.email}" placeholder="Type in Email">
+				</div>
+				<div class="form-group col-md-2">
+					<label>Choose POBox type</label>
+					<select type="text" class="select form-control" name="boxType" th:value="${user?.boxType}" require>
+						<option value="">Choose box</option>
+						<option value="1" val="vip">VIP</option>
+						<option value="2" val="normal">Normal</option>
+					</select>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Choose POBox number</label>
+					<select type="text" class="select form-control" name="boxName" th:value="${user?.boxName}" require>
+						<option value="">Choose box</option>
+						<option th:each="i : ${#numbers.sequence(1, 999)}" th:value="${i}" th:text="Box_+''+${i}">
+					</select>
+				</div>
+				<div class="form-group col-md-4 text-center">
+					<label for="inputPassword">Password</label>
+					<input type="password" class="form-control" name="pass" th:value="${user?.password}" required>
+				</div>
+				<div class="form-group col-md-4 text-center">
+					<label text-center>Confirm password</label>
+					<input type="password" class="form-control" name="pass" th:value="${user?.password}" required>
+				</div>
+				<div class="form-group col-md-6">
+					<p><strong>Note: </strong>VIP PO box cost $120 a year; Normal PO box is free</p>
+				</div>
+				<div class="form-group col-md-6 text-center">
+					<button class="btn btn-primary btn-lg" type="submit">Save</button>
+				</div>
+			</div>
+			<hr>
+		</form>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row text-center">
+				<div class="col-md-6 pt-3">
+					<img th:src="${/img/comit.png}" height="100">
+					<hr class="light">
+					<p>250 457 xxxx</p>
+					<P>cachecreekpo@gmail.com</P>
+				</div>
+				<div class="col-md-4">
+					<hr class="light">
+					<h3>Open hours</h3>
+					<hr class="light">
+					<p>Monday-Friday: 8am-5pm</p>
+					<P>Weekend: 8am-12am</P>
+				</div>
+				<div class="col-12">
+					<hr class="light-100">
+					<h5>&copy; Post Office Cache Creek</h5>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
