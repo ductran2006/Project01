@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
-public class PO_Util {
+public class Util {
 
 	public static Date parseDate(String str) {
 

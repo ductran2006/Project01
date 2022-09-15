@@ -1,12 +1,13 @@
 package org.comit.sourse.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.comit.sourse.bean.User;
 import org.comit.sourse.service.UserService;
-import org.comit.sourse.util.PO_Util;
+import org.comit.sourse.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +44,12 @@ public class UserController {
 	}
 
 	@PostMapping("/createUser")
-	public String createUser1(HttpServletRequest request) {
+	public String createUser(HttpServletRequest request) {
 		System.out.println("Create User");
+
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+		String dString = date.toString();
 
 		String first = request.getParameter("first");
 		String last = request.getParameter("last");
@@ -53,14 +58,12 @@ public class UserController {
 		String email = request.getParameter("email");
 		String boxName = request.getParameter("boxName");
 		String boxType = request.getParameter("boxType");
-		String dateRent = request.getParameter("dateRent");
-		String parcel = request.getParameter("parcel");
 
-		User user = this.createUser(null, first, last, userName, pass, email, boxName, boxType, dateRent, parcel);
+		User user = this.createUser(0, first, last, userName, pass, email, boxName, boxType, dString, 0);
 
 		this.userService.createUser(user);
 
-		return "redirect:/list";
+		return "redirect:/listUsers";
 	}
 
 	@GetMapping("/updateUser/{id}")
@@ -80,15 +83,16 @@ public class UserController {
 		String id = request.getParameter("id");
 		String first = request.getParameter("first");
 		String last = request.getParameter("last");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		String pass = request.getParameter("pass");
 		String email = request.getParameter("email");
 		String boxName = request.getParameter("boxName");
 		String boxType = request.getParameter("boxType");
 		String dateRent = request.getParameter("dateRent");
 		String parcel = request.getParameter("parcel");
 
-		User user = this.createUser(id, first, last, username, password, email, boxName, boxType, dateRent, parcel);
+		User user = this.createUser(Util.parseInt(id), first, last, userName, pass, email, boxName, boxType, dateRent,
+				Util.parseInt(parcel));
 
 		this.userService.modifyUser(user);
 
@@ -97,7 +101,7 @@ public class UserController {
 
 	@GetMapping("/deleteUser/{id}")
 	public String deleteUser(@PathVariable("id") int id) {
-		
+
 		System.out.println("Delete User");
 
 		this.userService.deleteUser(id);
@@ -105,15 +109,15 @@ public class UserController {
 		return "redirect:/listUsers";
 	}
 
-	private User createUser(String id, String first, String last, String userName, String pass, String email,
-			String boxName, String boxType, String dateRent, String parcel) {
+	private User createUser(int i, String first, String last, String userName, String pass, String email,
+			String boxName, String boxType, String date, int j) {
 
-		User user = new User(PO_Util.parseInt(id), first.trim(), last.trim(), userName.trim(), pass.trim(),
-				email.trim(),boxName.trim(),boxType.trim(),PO_Util.parseDate(dateRent),PO_Util.parseInt(parcel));
+		User user = new User(i, first.trim(), last.trim(), userName.trim(), pass.trim(), email.trim(), boxName.trim(),
+				boxType.trim(), Util.parseDate(date), 0);
 		return user;
 	}
-	//same comit_02
-	
+	// same comit_02
+
 	@GetMapping("userScreen")
 	public String showScreenUser() {
 		System.out.println("Show userScreen page");
