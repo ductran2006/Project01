@@ -49,17 +49,17 @@ public class UserController {
 
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
-		String dString = date.toString();
+		String dateRent = date.toString();
 
-		String first = request.getParameter("first");
-		String last = request.getParameter("last");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String userName = request.getParameter("userName");
-		String pass = request.getParameter("pass");
+		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String boxName = request.getParameter("boxName");
 		String boxType = request.getParameter("boxType");
 
-		User user = this.createUser(0, first, last, userName, pass, email, boxName, boxType, dString, 0);
+		User user = this.createUser(0, firstName, lastName, userName, password, email, boxName, boxType, dateRent, 0);
 
 		this.userService.createUser(user);
 
@@ -80,18 +80,18 @@ public class UserController {
 	public String updateUser(HttpServletRequest request) {
 		System.out.println("Update User");
 
-		String id = request.getParameter("id");
-		String first = request.getParameter("first");
-		String last = request.getParameter("last");
+		String idUser = request.getParameter("idUser");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String userName = request.getParameter("userName");
-		String pass = request.getParameter("pass");
+		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String boxName = request.getParameter("boxName");
 		String boxType = request.getParameter("boxType");
 		String dateRent = request.getParameter("dateRent");
 		String parcel = request.getParameter("parcel");
 
-		User user = this.createUser(Util.parseInt(id), first, last, userName, pass, email, boxName, boxType, dateRent,
+		User user = this.createUser(Util.parseInt(idUser), firstName, lastName, userName, password, email, boxName, boxType, dateRent,
 				Util.parseInt(parcel));
 
 		this.userService.modifyUser(user);
