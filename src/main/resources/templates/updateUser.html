@@ -78,7 +78,7 @@
 					<label>Choose POBox number</label>
 					<select type="text" class="select form-control" name="boxName" th:value="${user?.boxName}" require>
 						<option value="">Choose box</option>
-						<option th:each="i : ${#numbers.sequence(1, 999)}" th:value="${i}" th:text="Box_+''+${i}" require>
+						<option th:each="i : ${#numbers.sequence(1, 100)}" th:value="'Box'+${i}" th:text="Box+''+${i}" require>
 					</select>
 				</div>
 				<div class="form-group col-md-4 text-center">

@@ -22,7 +22,7 @@ public class UserDao {
 
 		return jdbcTemplate.query(sql, new UserMapper());
 	}
-
+	
 	public User findUser(int idUser) {
 
 		String sql = "SELECT * FROM USER WHERE IDUSER=?";
@@ -43,18 +43,21 @@ public class UserDao {
 		String sql = "INSERT USER(FIRSTNAME,LASTNAME,USERNAME,PASSWORD,EMAIL,BOXNAME, BOXTYPE, DATERENT, PARCEL) "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
 
-		jdbcTemplate.update(sql,new Object[] { user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(),
+		jdbcTemplate.update(sql,
+				new Object[] { user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(),
 						user.getEmail(), user.getBoxName(), user.getBoxType(), user.getDateRent(), user.getParcel() });
 
 	}
 
 	public void modifyUser(User user) {
 
-		String sql = "UPDATE USER SET FISRTNAME = ?, LASTNAME = ?, USERNAME = ?, PASSWORD = ?, "
+		String sql = "UPDATE USER SET FIRSTNAME = ?, LASTNAME = ?, USERNAME = ?, PASSWORD = ?, "
 				+ "EMAIL =? ,BOXNAME=?, BOXTYPE=?, DATERENT=?, PARCEL=? WHERE IDUSER = ?";
 
-		jdbcTemplate.update(sql, new Object[] {user.getFirstName(), user.getLastName(), user.getUserName(),
-				user.getPassword(), user.getEmail(), user.getBoxName(), user.getBoxType(), user.getDateRent(), user.getParcel()  });
+		jdbcTemplate.update(sql,
+				new Object[] { user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(),
+						user.getEmail(), user.getBoxName(), user.getBoxType(), user.getDateRent(), user.getParcel(),
+						user.getIdUser() });
 	}
 
 	public void deleteUser(int idUser) {

@@ -1,6 +1,6 @@
 package org.comit.sourse.controller;
 
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +10,7 @@ import org.comit.sourse.service.UserService;
 import org.comit.sourse.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,8 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+
+	public static final int maxBox = 100;
 
 	@GetMapping({ "/", "/index" })
 	public String index() {
@@ -34,6 +37,8 @@ public class UserController {
 
 		List<User> users = this.userService.listUsers();
 
+		System.out.println("Box vacancy: " + listBoxVacancy().toString());
+
 		return new ModelAndView("listUsers", "users", users);
 	}
 
@@ -44,12 +49,14 @@ public class UserController {
 	}
 
 	@PostMapping("/createUser")
-	public String createUser(HttpServletRequest request) {
+	public String createUser(HttpServletRequest request, Model model) {
 		System.out.println("Create User");
 
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
 		String dateRent = date.toString();
+
+		model.addAttribute("boxVacancy", this.listBoxVacancy());
 
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -59,7 +66,8 @@ public class UserController {
 		String boxName = request.getParameter("boxName");
 		String boxType = request.getParameter("boxType");
 
-		User user = this.createUser(0, firstName, lastName, userName, password, email, boxName, boxType, dateRent, 0);
+		User user = this.createUser(null, firstName, lastName, userName, password, email, boxName, boxType, dateRent,
+				null);
 
 		this.userService.createUser(user);
 
@@ -67,7 +75,7 @@ public class UserController {
 	}
 
 	@GetMapping("/updateUser/{id}")
-	public ModelAndView showUpdate(@PathVariable("id") int id) {
+	public ModelAndView showUpdate(@PathVariable("id") int id, Model model) {
 
 		System.out.println("Show Update");
 
@@ -91,8 +99,8 @@ public class UserController {
 		String dateRent = request.getParameter("dateRent");
 		String parcel = request.getParameter("parcel");
 
-		User user = this.createUser(Util.parseInt(idUser), firstName, lastName, userName, password, email, boxName, boxType, dateRent,
-				Util.parseInt(parcel));
+		User user = this.createUser(idUser, firstName, lastName, userName, password, email, boxName, boxType, dateRent,
+				parcel);
 
 		this.userService.modifyUser(user);
 
@@ -109,11 +117,11 @@ public class UserController {
 		return "redirect:/listUsers";
 	}
 
-	private User createUser(int i, String first, String last, String userName, String pass, String email,
-			String boxName, String boxType, String date, int j) {
+	private User createUser(String i, String first, String last, String userName, String pass, String email,
+			String boxName, String boxType, String date, String j) {
 
-		User user = new User(i, first.trim(), last.trim(), userName.trim(), pass.trim(), email.trim(), boxName.trim(),
-				boxType.trim(), Util.parseDate(date), 0);
+		User user = new User(Util.parseInt(i), first.trim(), last.trim(), userName.trim(), pass.trim(), email.trim(),
+				boxName.trim(), boxType.trim(), Util.parseDate(date), Util.parseInt(j));
 		return user;
 	}
 	// same comit_02
@@ -124,4 +132,24 @@ public class UserController {
 		return "userScreen";
 	}
 
+	public List<String> listBoxVacancy() {
+		List<String> listVacancy = new ArrayList<String>();
+		int vipNum = maxBox / 10;
+		int normalNum = maxBox - vipNum;
+
+		for (int i = 0; i < vipNum; i++) {
+			listVacancy.add("Vip" + (i + 1));
+		}
+
+		for (int i = 0; i < normalNum; i++) {
+			listVacancy.add("Box" + (i + 1));
+		}
+
+		List<User> users = this.userService.listUsers();
+
+		for (User user : users) {
+			listVacancy.remove(user.getBoxName());
+		}
+		return listVacancy;
+	}
 }
