@@ -78,7 +78,7 @@
 					<label>Choose POBox number</label>
 					<select type="text" class="select form-control" name="boxName" th:value="${user?.boxName}" require>
 						<option value="">Choose box</option>
-						<option th:each="i : ${#numbers.sequence(1, 999)}" th:value="${i}" th:text="Box_+''+${i}">
+						<option th:each="i : ${#numbers.sequence(1, 999)}" th:value="${i}" th:text="Box_+''+${i}" require>
 					</select>
 				</div>
 				<div class="form-group col-md-4 text-center">
@@ -105,7 +105,7 @@
 				<div class="col-md-6 pt-3">
 					<img th:src="@{/img/comit.png}" height="100">
 					<hr class="light">
-					<p>250 457 xxxx</p>
+					<p>250 457 2528</p>
 					<P>cachecreekpo@gmail.com</P>
 				</div>
 				<div class="col-md-4">
