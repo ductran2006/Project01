@@ -1,12 +1,41 @@
+
 server:
   port: 8081
 
-
+logging.level:
+  web: debug
+  org.comit.sourse: debug
+  
 spring:
+  profiles:
+    active: dev
+
+---  
+#Development profile 
+  
+spring:
+  profiles: dev
   datasource:
      url: jdbc:mysql://localhost:3306/pobox1?autoReconnect=true&useSSL=false&useUnicode=true&serverTimezone=UTC
      username: root
      password: root
+     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+     init:
+       continue-on-error: false
+
+---
+#Production profile 
+
+server:
+  port: 8083
+
+spring:
+  profiles: prod
+  datasource:
+     url: jdbc:mysql://busyqa-db.cj1s2l7xhctw.us-east-2.rds.amazonaws.com:3306/pobox1?autoReconnect=true&useSSL=false&useUnicode=true&serverTimezone=UTC
+     username: admin
+     password: DTaws129
      driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
      init:

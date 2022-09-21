@@ -30,10 +30,13 @@
 			<div class="collapse navbar-collapse" id="#navbarReponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
+						<a class="nav-link" href="/index">Home</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="#">User's mails<span class="badge badge-warning ">4</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="Index.html">Logout</a>
+						<a class="nav-link" th:href="@{/logout}">Logout</a>
 					</li>
 				</ul>
 			</div>
@@ -72,25 +75,35 @@
 	<div id="text1" style="display: none;">
 		<pre class="text-center">
 All that glitters is not gold
-
+		</pre>
+	</div>
+	
+	<div id="text1" style="display: none;">
+		<pre class="text-center">
 A picture is worth a thousand words
 
 All good things come to an end
 		</pre>
 	</div>
+	
 	<div id="text2" style="display: none;">
 		<pre class="text-center">
 Beggars can't be choosers
 
 A journey of a thousand miles begins with a single step
-
-A bird in the hand is worth two in the bush
 		</pre>
 	</div>
+	
 	<div id="text3" style="display: none;">
 		<pre class="text-center">
-Actions speak louder than words
+A bird in the hand is worth two in the bush
 
+Actions speak louder than words
+		</pre>
+	</div>
+	
+	<div id="text3" style="display: none;">
+		<pre class="text-center">
 An apple a day keeps the doctor away
 
 An Apple a day keeps the doctor away
@@ -101,14 +114,17 @@ An Apple a day keeps the doctor away
 Its better to be safe than sorry
 
 Better late than never
-
-Actions speak louder than words
 		</pre>
 	</div>
 	<div id="text5" style="display: none;">
 		<pre class="text-center">
+Actions speak louder than words		
+		
 Do not withhold good from those to whom it is due when it is in your power to act
-
+		</pre>
+	</div>
+		<div id="text5" style="display: none;">
+		<pre class="text-center">
 Above all else, guard your heart, for everything you do flows from it
 
 Deceit is in the hearts of those who plot evil, but those who promote peace have joy
@@ -156,7 +172,7 @@ Hatred stirs up conflict, but love covers over all wrongs
 
 	<script>
 		function displayProverb() {
-			let i = Math.random() * 6 + 1;
+			let i = Math.random() * 10 + 1;
 			i = i.toFixed(0);
 			let s = "text";
 			s = s + i;
